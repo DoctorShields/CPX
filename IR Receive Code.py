@@ -12,14 +12,17 @@ pulsein = pulseio.PulseIn(board.IR_RX, maxlen=120, idle_state=True)
 # most IR remotes are similar enough, we can use a generic decoder
 decoder = adafruit_irremote.GenericDecode()
 
-print("receiver CPX")
+print("Receive is orange")
+cpx.pixels.fill((100,50,0))
+time.sleep(2)
 
 while True:
     #the read_pulses() function waits for something to be detected
     pulses = decoder.read_pulses(pulsein)
     try:
-        #decode_bits() decodes into bits.  duh.
-        received_code = decoder.decode_bits(pulses, debug=False)
+        # decode_bits() decodes into bits.  duh.
+        # received_code = decoder.decode_bits(pulses, debug=False)
+        received_code = decoder.decode_bits(pulses)
     except adafruit_irremote.IRNECRepeatException:
         print("repeat exception")
         continue
